@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Cut & Reveal</title>
+<div class="watermark">Made with intent · Aman Singh</div>
+
+<!-- Google Sans -->
+<link href="https://fonts.cdnfonts.com/css/google-sans" rel="stylesheet">
+
+<style>
+body {
+    
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(
+        270deg,
+        #833ab4,
+        #c13584,
+        #e1306c,
+        #5851db
+    );
+    background-size: 600% 600%;
+    animation: slowGradient 22s ease-in-out infinite;
+
+    font-family: 'Google Sans', sans-serif;
+    color: #ffffff;
+}
+
+@keyframes slowGradient {
+    0%   { background-position: 0% 50%; }
+    50%  { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.container {
+    text-align: center;
+    padding: 38px 48px;
+    border-radius: 26px;
+    background: rgba(0,0,0,0.25);
+    backdrop-filter: blur(14px);
+}
+
+/* Clickable mysterious text */
+#hint {
+    font-size: 26px;
+    font-weight: 500;
+    letter-spacing: 0.7px;
+    margin-bottom: 22px;
+    opacity: 0.95;
+    cursor: pointer;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+#hint:hover {
+    opacity: 1;
+    transform: scale(1.02);
+}
+
+.quote {
+    font-size: 28px;
+    line-height: 1.45;
+    max-width: 520px;
+    animation: fadeIn 1.4s ease;
+}
+
+.hidden {
+    display: none;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.watermark {
+    position: fixed;
+    bottom: 18px;
+    right: 22px;
+    font-size: 13px;
+    letter-spacing: 0.6px;
+    opacity: 0.35;
+    pointer-events: none;
+    font-family: 'Google Sans', sans-serif;
+}
+.grain {
+  position: fixed;
+  inset: 0;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  opacity: 0.06;
+  pointer-events: none;
+}
+#hint {
+  transition: letter-spacing 0.4s ease, opacity 0.4s ease;
+}
+
+#hint:hover {
+  letter-spacing: 1.4px;
+}
+.quote {
+  color: rgba(255,255,255,0.95);
+  text-shadow: 0 4px 20px rgba(255,255,255,0.15);
+}
+.grain {
+  animation: grainMove 8s steps(10) infinite;
+}
+
+@keyframes grainMove {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(-10px, -10px); }
+}
+
+
+</style>
+</head>
+
+<body>
+
+
+<div class="container">
+    <p id="hint">just click, don’t overthink it</p>
+    <div id="quote" class="quote hidden"></div>
+</div>
+
+<script>
+/* Quotes */
+const quotes = [
+  "u can always just decide that ure so back",
+  "some days you heal by choosing yourself",
+  "you survived things you thought you couldn’t",
+  "growth feels lonely before it feels peaceful",
+  "soft hearts still survive in hard worlds",
+
+  "not everything that ends is a failure",
+  "you don’t need permission to begin again",
+  "sometimes staying is braver than leaving",
+  "you were never asking for too much",
+  "healing doesn’t always look like progress",
+
+  "it’s okay if this takes time",
+  "you’re allowed to outgrow people",
+  "what’s meant for you won’t rush you",
+  "you are not behind",
+  "rest is also movement",
+  "trying feels better than succeeding",
+  "quit panicking you nut, it's all good or will be",
+  "everything u lost wasn’t meant to be urs anyway",
+  "all the magic ure looking for is already inside u",
+  "it is always important to remember that life is coming from u, not at u - timothee tchalamet sometime??",
+  "You can go back to your past, but nobody is there anymore",
+
+  "some chapters close quietly",
+  "replacing 'I have to do this' with 'I get to do this' is all u need to",
+  "you’re not broken, just tired",
+  "this version of you is trying",
+  "nothing blooms all year",
+  "you don’t owe anyone your softness",
+
+  "even uncertainty has its own wisdom",
+  "you were listening to yourself all along",
+  "it’s allowed to be slow",
+  "not everything needs a reaction",
+  "you’re still becoming"
+];
+
+
+const hint = document.getElementById("hint");
+const quoteBox = document.getElementById("quote");
+
+let clicks = 0;
+const userQuote = quotes[Math.floor(Math.random() * quotes.length)];
+
+hint.addEventListener("click", () => {
+    clicks++;
+
+    if (clicks < 3) {
+        hint.textContent = clicks === 1 ? "I knew you’d click again" : "you really wanna know 👀";
+    } else {
+        hint.classList.add("hidden");
+        quoteBox.textContent = userQuote;
+        quoteBox.classList.remove("hidden");
+    }
+});
+</script>
+<div class="grain"></div>
+<div class="cursor"></div>
+
+</body>
+</html>
